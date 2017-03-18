@@ -4,6 +4,10 @@ IHM595::IHM595(uint8_t clock_, uint8_t data_, uint8_t enable_) {
 	clock  = clock_;
 	data   = data_;
 	enable = enable_;
+	_col = 0x0F;
+	_row = 0x02;
+	_mode();
+	init();
 }
 
 //private:
@@ -37,6 +41,13 @@ void IHM595::cmd(uint8_t d, uint8_t c) {
     send(_send);
 }
 
+void IHM595::_mode() {
+	_addressrow[0] = 0x00;
+	_addressrow[1] = 0x40;
+	_addressrow[2] = _col;
+	_addressrow[3] = _col + 0x40;
+}
+
 //public:
 size_t IHM595::write(uint8_t d) {
 	cmd(d,0);
@@ -55,7 +66,7 @@ size_t IHM595::write(const uint8_t *s, size_t l) {
 	return 1;
 }
 
-void IHM595::begin() {
+void IHM595::init() {
 	digitalWrite(clock, LOW);
 	digitalWrite(data, LOW);
 	digitalWrite(enable, LOW);
@@ -76,6 +87,7 @@ void IHM595::begin() {
 	delayMicroseconds(2000);
 	cmd(0x01,1);
 	delayMicroseconds(2000);
+	set(0,0);
 }
 
 void IHM595::clear() {
@@ -97,10 +109,12 @@ void IHM595::display(uint8_t state) {
 	else cmd(0x08,1);
 }
 void IHM595::set(uint8_t col, uint8_t row) {
-	uint8_t aux;
-    if(row) aux=0xC0;
-    else aux=0x80;
-    aux|=col;
+	size_t max_lines = sizeof(_addressrow) / sizeof(*_addressrow);
+	if(row >= max_lines)
+		row = max_lines-1;
+	if(row >= _col)
+		row = _col - 1;
+	uint8_t aux = 0x80 | (col + _addressrow[row]);
 	cmd(aux,1);
 	delayMicroseconds(2000);
 }
