@@ -15,7 +15,6 @@ uint64_t mil;
 IHM595 board(2,3,4);
 
 void setup() {
-  board.begin();
   board.background(HIGH);
   board.set(5,0);
   String a = "UPTime";
