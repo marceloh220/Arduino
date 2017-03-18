@@ -2,7 +2,7 @@
 IHM595		KEYWORD1
 
 ######################
-begin		KEYWORD2
+init		KEYWORD2
 clear		KEYWORD2
 home		KEYWORD2
 cursor		KEYWORD2
