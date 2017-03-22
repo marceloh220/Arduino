@@ -25,7 +25,7 @@ private:
 	void cmd(uint8_t d, uint8_t c);
 	void _mode();
 public:
-	IHM595(uint8_t clock_, uint8_t data_, uint8_t enable_);
+	IHM595(uint8_t data_, uint8_t clock_, uint8_t enable_);
 	virtual size_t write(uint8_t c);
 	virtual size_t write(const char *s);
 	virtual size_t write(const uint8_t *s, size_t l);
