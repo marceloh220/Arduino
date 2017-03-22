@@ -1,6 +1,6 @@
 #include "IHM595.h"
 
-IHM595::IHM595(uint8_t clock_, uint8_t data_, uint8_t enable_) {
+IHM595::IHM595(uint8_t data_, uint8_t clock_, uint8_t enable_) {
 	clock  = clock_;
 	data   = data_;
 	enable = enable_;
