@@ -12,6 +12,7 @@
 
 uint8_t s,m,h;
 uint64_t mil;
+//(Data pin, Clock pin, Enable pin)
 IHM595 board(2,3,4);
 
 void setup() {
