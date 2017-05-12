@@ -73,11 +73,11 @@ void IHM595::init() {
 	pinMode(clock, OUTPUT);
 	pinMode(data, OUTPUT);
 	pinMode(enable, OUTPUT);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	delayMicroseconds(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	delayMicroseconds(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	delayMicroseconds(150);
 	cmd(0x02,1);
 	delayMicroseconds(2000);

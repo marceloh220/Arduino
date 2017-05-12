@@ -27,11 +27,11 @@ IHM8574::IHM8574(uint8_t address) {
 
 void IHM8574::init() {
 	_delay_us(10000);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	_delay_us(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	_delay_us(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	_delay_us(150);
 	cmd(0x02,1);
 	_delay_us(2000);
