@@ -1,25 +1,22 @@
-#include <clzd01.h>
+#include <CLZD01.h>
 
 #define dataPin   2
 #define clockPin  3
 
-Serial monitor(9600);
-CLZD temperatura(dataPin, clockPin);
+CLZD temperature(dataPin, clockPin);
 
 void setup() {
 
+	Serial.begin(9600);
 
-
-  
 }
 
 
 
 void loop() {
 
-  monitor.print(temperatura.read());
-  minitor.println("° C");
-
+  Serial.print(temperature.read());
+  Serial.println("° C");
   
 }
 

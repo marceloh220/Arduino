@@ -16,9 +16,9 @@
 #ifndef _CLZD01_H_
 #define _CLZD01_H_
 
-#include <marcelino.h>
+#include <Arduino.h>
 
-class CLZD: private Digital {
+class CLZD {
 
 private:
   

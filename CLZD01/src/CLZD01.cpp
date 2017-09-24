@@ -14,43 +14,44 @@
  */
 
 
-#include "clzd01.h"
+#include "CLZD01.h"
 
 //constructor
 CLZD::CLZD(uint8_t dataPin, uint8_t clockPin) {
 	data = dataPin;
 	clock = clockPin;
-	Digital::write(clock, LOW);
-	Digital::mode(clock, OUTPUT);
-	Digital::mode(data, INPUT);
+	digitalWrite(clock, LOW);
+	pinMode(clock, OUTPUT);
+	pinMode(data, INPUT);
 }
 
 //private
 void CLZD::pulse() {
-	Digital::write(clock, HIGH);
+	digitalWrite(clock, HIGH);
 	_delay_us(8);
-	Digital::write(clock, LOW);
-	nop();
+	digitalWrite(clock, LOW);
 }
 
 void CLZD::com() {
 	uint16_t volatile aux = 0;
 	uint8_t paridade = 0;
-	for (int i = 0x0200; i; i = i >> 1) {
+	uint8_t j = 9;
+	for (int i = 0; i < 10; i++) {
 		this->pulse();
-		if (Digital::read(data)) {
+		if (digitalRead(data)) {
 			_delay_us(1);
-			if (Digital::read(data)) {
-				aux |= i;
-				this->paridade++;
+			if (digitalRead(data)) {
+				aux |= (1<<j);
+				paridade++;
 			}
 		}
+		j--;
 	}
 	this->pulse();
-	this->paridade %= 2;
-	if (this->paridade == Digital::read(data)) {
+	paridade %= 2;
+	if (paridade == digitalRead(data)) {
 		_delay_us(1);
-		if (this->paridade == Digital::read(data))
+		if (paridade == digitalRead(data))
 			this->temp = aux;
 	}
 }
